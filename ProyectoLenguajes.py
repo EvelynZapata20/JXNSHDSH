@@ -1,6 +1,6 @@
 Pronombres = ["camilo", "evelyn", "ana", "juan", "alejandro", "isabel", "marco"]
 Determinantes = ["mi", "tu","el","la", "una", "un"]
-Preposiciones = ["con", "en", "sobre", "hay"]
+Preposiciones = ["con", "en", "sobre"]
 Sustantivos=["perro", "cuchillo", "gato", "loro", "casa", "carro", "manzana"]
 VPresente = ["es", "esta", "pela", "come", "corre", "estudia", "duerme", "programa", "programa", "enseña", "aprende"]
 VPasado = ["fue", "estuvo", "peló", "comió", "corrió", "estudió", "durmió", "programó", "enseñó" , "aprendió"]
