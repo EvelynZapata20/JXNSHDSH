@@ -6,30 +6,49 @@ VPresente = ["es", "esta", "pela", "come", "corre", "estudia", "duerme", "progra
 VPasado = ["fue", "estuvo", "peló", "comió", "corrió", "estudió", "durmió", "programó", "enseñó" , "aprendió"]
 Adjetivo = ["lento", "feo", "verde", "rapido", "grande", "rica", "peligroso", "sucia", "mucho", "poco"]
 
-
 def NombrePropio(palabras:list):
     Valor=True
     if (palabras[1] not in VPresente) and (palabras [1] not in VPasado):
         Valor=False
+        
     else:
-        if (len(palabras)>2):
-            if (palabras[2] not in Adjetivo) and (palabras[2] not in Determinantes):
+        if (len(palabras)>2 and len(palabras)<4):
+            if (palabras[2] not in Adjetivo) and (palabras[2] not in Determinantes) and (palabras[2] not in Preposiciones):
                 Valor=False
-        elif (len(palabras)>3):
-            if (palabras[2] in Determinantes) and (palabras[3] not in Sustantivos):
+
+        if (len(palabras)>3):
+            if (palabras[2] in Preposiciones) and (palabras[3] not in Determinantes):
                 Valor=False
-        elif (len(palabras)>4):
-            if (palabras[4] in Preposiciones) and (palabras[5] not in Determinantes):
+            elif (palabras[2] in Determinantes) and (palabras[3] not in Sustantivos):
                 Valor=False
+            if (palabras[3] in Sustantivos) and ((palabras[4] not in Preposiciones) and (palabras[4] not in Adjetivo)):
+                Valor=False
+            elif (palabras[3] in Determinantes) and ((palabras[4] not in Sustantivos)):
+                Valor=False
+
+        if (palabras[len(palabras)-1] in Determinantes) or (palabras[len(palabras)-1] in Preposiciones):
+            Valor=False
+
     return Valor
 
 
 def Analizador(text: str):
     Valor = True
+    Verbos= 0
     palabras = text.split()
+
+    for i in palabras:
+        if (i in VPasado) or (i in VPresente):
+            Verbos=Verbos+1
+
+    if Verbos==0:
+        Valor=False
 
     if len(palabras) == 1:  # Caso donde tiene una única palabra
         Valor = False
+
+    elif Verbos>1:
+        Valor=False
 
     elif palabras[0] in Pronombres:  # Caso donde inicia con nombre propio
         Valor=NombrePropio(palabras)
@@ -44,6 +63,5 @@ def Analizador(text: str):
 
     print(Valor)
 
-Palabra= "Ana pela una manzana con cuchillo"
+Palabra= "Camilo estudió en una casa verde"
 Analizador(Palabra.lower())
-
