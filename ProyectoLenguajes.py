@@ -6,24 +6,21 @@ VPresente = ["es", "esta", "pela", "come", "corre", "estudia", "duerme", "progra
 VPasado = ["fue", "estuvo", "peló", "comió", "corrió", "estudió", "durmió", "programó", "enseñó" , "aprendió"]
 Adjetivo = ["lento", "feo", "verde", "rapido", "grande", "rica", "peligroso", "sucia", "mucho", "poco"]
 
+
 def NombrePropio(palabras:list):
     Valor=True
-    if palabras[1]  not in Sustantivos:
+    if (palabras[1] not in VPresente) and (palabras [1] not in VPasado):
         Valor=False
     else:
-        palabras=palabras[1:]
-        if (palabras[1] not in VPresente) and (palabras [1] not in VPasado):
-            Valor=False
-        else:
-            if (len(palabras)>2):
-                if (palabras[2] not in Adjetivo) and (palabras[2] not in Determinantes):
-                    Valor=False
-            if (len(palabras)>3):
-                if (palabras[2] in Determinantes) and (palabras[3] not in Sustantivos):
-                    Valor=False
-            if (len(palabras)>4):
-                if (palabras[2] in Determinantes) and (palabras[3] in Sustantivos) and (palabras[4] not in Sustantivos):
-                    Valor=False
+        if (len(palabras)>2):
+            if (palabras[2] not in Adjetivo) and (palabras[2] not in Determinantes):
+                Valor=False
+        elif (len(palabras)>3):
+            if (palabras[2] in Determinantes) and (palabras[3] not in Sustantivos):
+                Valor=False
+        elif (len(palabras)>4):
+            if (palabras[4] in Preposiciones) and (palabras[5] not in Determinantes):
+                Valor=False
     return Valor
 
 
@@ -35,7 +32,7 @@ def Analizador(text: str):
         Valor = False
 
     elif palabras[0] in Pronombres:  # Caso donde inicia con nombre propio
-        NombrePropio(palabras)
+        Valor=NombrePropio(palabras)
 
 
     elif palabras[0] in Determinantes:  # Caso donde inicia con posesivo
@@ -43,9 +40,10 @@ def Analizador(text: str):
             Valor = False
         else:
             palabras = palabras[1:]
-            NombrePropio(palabras)
+            Valor=NombrePropio(palabras)
 
     print(Valor)
 
-Palabra= "El perro se comió una manzana"
+Palabra= "Ana pela una manzana con cuchillo"
 Analizador(Palabra.lower())
+
