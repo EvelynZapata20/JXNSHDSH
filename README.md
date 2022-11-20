@@ -1,4 +1,4 @@
-# Practica Final - Lenguajes de Programación
+# Práctica Final - Lenguajes de Programación
 # Integrantes: 
 Juan Camilo Villa Correa - Evelyn Alejandra Zapata Tobón
 # Descripción: 
